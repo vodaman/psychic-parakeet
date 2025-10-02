@@ -19,9 +19,43 @@ from PyQt5.QtWidgets import *
 
 app = QApplication([])
 window = QMainWindow()
-label = QLabel("Pick a color")
-menuBar = QMenuBar()
-statusBar = window.addst
+label = QLabel("Pick a color", window)
+menu = window.menuBar()
+toolBar = window.addToolBar("Bar")
+statusBar = window.statusBar()
+
+red = QAction("R E D", window)
+green = QAction("green", window)
+blue = QAction("blue", window)
+res = QAction("reset", window)
+
+red.setShortcut("Ctrl+1")
+green.setShortcut("Ctrl+2")
+blue.setShortcut("Ctrl+3")
+res.setShortcut("Ctrl+0")
+
+label.setGeometry(100,100,250,50)
+
+toolBar.addActions({red, green, blue, res})
+
+def tored():
+    window.setStyleSheet("background-color: red;")
+def togreen():
+    window.setStyleSheet("background-color: green;")
+def toblue():
+    window.setStyleSheet("background-color: blue;")
+def reset():
+    window.setStyleSheet("background-color: white;")
+
+red.triggered.connect(tored)
+green.triggered.connect(togreen)
+blue.triggered.connect(toblue)
+res.triggered.connect(reset)
+
+red.setStatusTip("the world is your canvas so take your brush and paint the world  R E D.")
+green.setStatusTip("Set the background to green")
+blue.setStatusTip("Set the background to blue")
+res.setStatusTip("Reset the background")
 
 window.show()
 app.exec_()
